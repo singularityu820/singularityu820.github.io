@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>[论文精读]PEGAsus：从参考形状学习可迁移的三维概念 | Boson</title><meta name="description" content><meta name="author" content="Boson"><meta name="generator" content="Astro v7.4.4"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://singularityu820.github.io/zh/posts/001/"><link rel="alternate" hreflang="zh-Hans" href="https://singularityu820.github.io/zh/posts/001/"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="中文更新" href="/zh/rss.xml"><meta property="og:type" content="website"><meta property="og:title" content="[论文精读]PEGAsus：从参考形状学习可迁移的三维概念 | Boson"><meta property="og:description" content><meta property="og:url" content="https://singularityu820.github.io/zh/posts/001/"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://singularityu820.github.io/social-card.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content=""><meta property="og:type" content="article"><meta property="article:published_time" content="2026-11-03T16:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"[论文精读]PEGAsus：从参考形状学习可迁移的三维概念 | Boson","datePublished":"2026-11-03T16:00:00.000Z","author":[{"@type":"Person","name":"Boson","url":"https://github.com/singularityu820"}]}</script><script>
+      (() => {
+        let stored;
+        try { stored = localStorage.getItem("theme"); } catch {}
+        const theme = stored === "light" || stored === "dark" ? stored : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        window.__theme = { value: theme };
+      })();
+    </script><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}
+</style><link rel="stylesheet" href="/_astro/Layout.Bq-hBvJA.css"><style>[data-astro-transition-scope="astro-bztu2lml-1"] { view-transition-name: generated-by-agents; }@layer astro { ::view-transition-old(generated-by-agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(generated-by-agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(generated-by-agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(generated-by-agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-2"] { view-transition-name: _3d-personalization; }@layer astro { ::view-transition-old(_3d-personalization) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(_3d-personalization) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(_3d-personalization) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(_3d-personalization) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-3"] { view-transition-name: concept-learning; }@layer astro { ::view-transition-old(concept-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(concept-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(concept-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(concept-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-4"] { view-transition-name: structured-latent; }@layer astro { ::view-transition-old(structured-latent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(structured-latent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(structured-latent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(structured-latent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-5"] { view-transition-name: flow-matching; }@layer astro { ::view-transition-old(flow-matching) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(flow-matching) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(flow-matching) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(flow-matching) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-6"] { view-transition-name: region-wise-learning; }@layer astro { ::view-transition-old(region-wise-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(region-wise-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(region-wise-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(region-wise-learning) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/zh/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none">Boson</a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="展开导航" aria-expanded="false" aria-controls="menu-items" data-label-open="展开导航" data-label-close="收起导航"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/zh/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/zh/projects/">项目</a></li><li class="col-span-2"><a href="/zh/tags/">标签</a></li><li class="col-span-2"><a href="/zh/about/">关于</a></li><li class="col-span-2"><a href="/en/" title="浏览英文精选" aria-label="浏览英文精选" hreflang="en" data-language-switch="true" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" viewBox="0 0 24 24" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2"><path d="M4 5h9M8 3v2m3 0c-1 5-3 8-7 10m1-7c1 3 3 5 6 7m2 6 4-10 4 10m-6.8-3h5.6" /></svg><span class="sm:sr-only">English</span></a></li><li class="col-span-2"><a href="/zh/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/zh/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换明暗主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><main id="main-content" class="app-layout py-10" data-pagefind-body><a class="text-accent text-sm hover:underline" href="/zh/posts/" data-pagefind-ignore>← 文章</a><h1 class="mt-5 mb-5 text-3xl font-bold leading-snug tracking-tight sm:text-4xl" data-pagefind-meta="title">[论文精读]PEGAsus：从参考形状学习可迁移的三维概念</h1><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5 scale-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time class="text-sm" datetime="2026-11-03T16:00:00.000Z">2026年11月4日</time></div><p class="mt-4 text-muted-foreground"></p><div class="border-border mt-7 flex flex-wrap items-center gap-3 border-y py-3 text-sm" data-pagefind-ignore><span class="text-muted-foreground">暂无英文版</span><a class="text-accent hover:underline" href="/en/posts/">浏览英文精选 →</a></div><details class="border-border mt-8 border-b pb-5" data-pagefind-ignore><summary class="cursor-pointer text-sm text-muted-foreground">本文目录</summary><ul class="mt-3 space-y-2 text-sm"><li><a class="text-accent hover:underline" href="#1-作者到底想解决什么问题">1. 作者到底想解决什么问题？</a></li><li><a class="text-accent hover:underline" href="#2-这真的是一个新问题吗">2. 这真的是一个新问题吗？</a></li><li><a class="text-accent hover:underline" href="#3-先理解基础trellis-为什么适合这项任务">3. 先理解基础：TRELLIS 为什么适合这项任务？</a></li><li><a class="text-accent hover:underline" href="#4-一个参考模型如何训练出一个概念向量">4. 一个参考模型，如何训练出一个概念向量？</a></li><li><a class="text-accent hover:underline" href="#5-全局概念与局部概念为什么需要两种-loss">5. 全局概念与局部概念：为什么需要两种 Loss？</a></li><li><a class="text-accent hover:underline" href="#6-四种概念如何在生成时使用">6. 四种概念如何在生成时使用？</a></li><li><a class="text-accent hover:underline" href="#7-实验到底证明了什么">7. 实验到底证明了什么？</a></li><li><a class="text-accent hover:underline" href="#8-论文的创新边界与尚未回答的问题">8. 论文的创新边界与尚未回答的问题</a></li><li><a class="text-accent hover:underline" href="#9-阅读总结">9. 阅读总结</a></li><li><a class="text-accent hover:underline" href="#参考资料">参考资料</a></li></ul></details><article id="article" class="app-prose mt-9 max-w-none"><h2 id="1-作者到底想解决什么问题">1. 作者到底想解决什么问题？</h2>
+<p>假设我看到一个具有特殊锯齿状结构的三维模型，很喜欢它的局部造型。我希望保留这种锯齿设计，同时生成一辆汽车、一把椅子，甚至一座建筑。理想的系统需要同时理解两种约束：新物体应当符合文本指定的类别，参考物体中某些设计属性又应当被继承。</p>
+<p>PEGAsus 将这一任务称为 <strong>3D Shape Personalization</strong>。它希望从参考三维形状中学习<strong>可复用、与物体类别相对无关</strong>的几何与外观属性，再将这些属性与新的文本提示组合，生成三维资产。直观地说：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>参考三维物体 ──> 学习几何概念 / 外观概念</span></span>
+<span class="line"><span>                                │</span></span>
+<span class="line"><span>新目标文本 ──────────────────────┤</span></span>
+<span class="line"><span>                                ↓</span></span>
+<span class="line"><span>                       个性化三维资产</span></span></code></pre>
+<p>例如，从花朵学习分枝或花瓣结构，从西瓜学习条纹外观，再将几何和外观概念应用于其他类别的物体。</p>
+<p>这里的关键词是<strong>可控生成</strong>。参考物体提供文本难以准确描述的属性，文本描述则决定新物体的目标语义。作者尤其强调四种控制模式：<strong>全局几何、局部几何、全局外观、局部外观</strong>。</p>
+<h2 id="2-这真的是一个新问题吗">2. 这真的是一个新问题吗？</h2>
+<p>第一遍阅读 Related Work 时，我曾经感觉：作者列出的四个方向彼此相关，但似乎没有哪个与 PEGAsus 完全相同。这种观察有一定道理，却不能推出“三维个性化此前没有人做过”。</p>
+<p>论文涉及四条研究路线：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>方向</th><th>已有工作主要解决什么</th><th>PEGAsus 借鉴了什么</th></tr></thead><tbody><tr><td>基于实例的三维建模</td><td>检索、变形、拼装已有的三维部件</td><td>参考形状中属性的复用</td></tr><tr><td>三维风格迁移</td><td>将参考风格应用于已有目标形状或内容</td><td>几何与外观风格的迁移</td></tr><tr><td>三维生成基础模型</td><td>学习三维资产分布，在文本或图像条件下生成物体</td><td>跨类别生成能力及预训练先验</td></tr><tr><td>图像个性化生成</td><td>从少量样本学习特定主体或视觉概念，并在新提示词下重用</td><td>文本嵌入优化、生成器微调</td></tr></tbody></table>
+<p>还有几篇在任务上更直接接近的工作：</p>
+<ul>
+<li><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Raj_DreamBooth3D_Subject-Driven_Text-to-3D_Generation_ICCV_2023_paper.html">DreamBooth3D（ICCV 2023）</a>：根据少量主体照片生成个性化三维资产，并支持文本引导的变化。重点偏向<strong>主体身份</strong>的保留。</li>
+<li><a href="https://arxiv.org/abs/2403.15383">ThemeStation（SIGGRAPH 2024）</a>：从少量三维实例中学习共同的设计主题，生成主题一致又具有多样性的资产。与<strong>设计属性的复用</strong>十分接近。</li>
+<li><a href="https://doi.org/10.1145/3757377.3763929">StyleSculptor（SIGGRAPH Asia 2025）</a>：由内容图像、风格图像指导三维生成，可分别控制几何和纹理风格，采用无需针对样本重新训练的方案。</li>
+</ul>
+<p>因此，我目前对 PEGAsus 的定位是：<strong>在既有三维个性化、主题迁移和风格控制研究的基础上，系统地将单参考三维概念学习组织为几何与外观、全局与局部两个维度，并在预训练三维生成模型中实现。</strong></p>
+<p>这一定位比“首次实现三维个性化”更准确，也提示了真正值得比较的内容：输入模态、目标是否预先存在、是否需要逐概念训练、能够控制哪些属性，以及跨类别迁移是否可靠。</p>
+<h2 id="3-先理解基础trellis-为什么适合这项任务">3. 先理解基础：TRELLIS 为什么适合这项任务？</h2>
+<p>PEGAsus 建立在 <a href="https://microsoft.github.io/TRELLIS/">TRELLIS</a> 上。TRELLIS 是一种三维生成模型，可以基于文本或图像条件生成三维资产。它的关键表示称为 <strong>Structured Latent（SLAT，结构化潜变量）</strong>：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>Z</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"></mspace><mi>V</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>p</mi><mi>i</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>L</mi></msubsup><mo separator="true">,</mo><mspace width="1em"></mspace><mi>Z</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>z</mi><mi>i</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>L</mi></msubsup><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">(V,Z),\qquad V=\{p_i\}_{i=1}^{L},\quad Z=\{z_i\}_{i=1}^{L}.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">Z</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1413em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">Z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1413em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord">.</span></span></span></span></span>
+<p>这里的 <strong>V</strong> 是稀疏空间结构。三维空间可以被划分成体素（Voxel），但物体通常只占据整个空间的一小部分，因此只记录有效的空间位置，特别是与物体表面相关的位置。稀疏体素是常见的三维表示思想，并非 TRELLIS 特有。</p>
+<p><strong>Z</strong> 则为每个有效位置附加学习到的局部特征。这些特征能够参与恢复更精细的几何和外观信息。要特别注意：<strong>Z 不等同于明确的 RGB 颜色或 SVBRDF 材质参数</strong>，它是一种学习得到的潜在表示。</p>
+<p>TRELLIS 的生成分为两个阶段：</p>
+<ol>
+<li><strong>Sparse Structure Stage</strong>：从噪声生成结构潜变量，经解码得到稀疏结构 (V)。</li>
+<li><strong>Structured Latent Stage</strong>：在 (V) 和条件输入的约束下，从噪声生成详细特征 (Z)。最后再将 ((V,Z)) 解码为 Mesh、3D Gaussian 等表示。</li>
+</ol>
+<p>这两个阶段有各自的生成器，PEGAsus 将其分别用于几何和外观概念的学习。因此，所谓几何与外观分离，首先体现为<strong>个性化控制作用在不同生成阶段</strong>。空间占据与详细特征之间仍然可能存在信息耦合，不能直接将这种架构解释为物理意义上的完全解耦。</p>
+<h3 id="vae-和-flow-matching-分别做什么">VAE 和 Flow Matching 分别做什么？</h3>
+<p>我最初读到 VAE 和 Flow Matching 时并没有弄清它们与方法的关系。现在可以先建立一个最低限度的理解：</p>
+<ul>
+<li><strong>VAE</strong> 在这里承担压缩表示和解码重建的角色。对于几何阶段，参考结构经过编码得到潜变量 (X)，生成完成后也需要将潜变量解码回空间结构。</li>
+<li><strong>Flow Matching</strong> 学习潜变量如何从噪声状态向数据状态变化。生成器预测的是潜在空间中的<strong>目标速度</strong>，并通过预测误差训练。</li>
+</ul>
+<p>几何生成器的基本损失可写为：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">L</mi><mrow><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">o</mi></mrow></msub><mo>=</mo><mi mathvariant="double-struck">E</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><mi mathvariant="normal">∥</mi><msub><mi>v</mi><mi>t</mi></msub><mo>−</mo><msub><mi>G</mi><mrow><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">o</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>X</mi><mi>t</mi></msub><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><msup><mi mathvariant="normal">∥</mi><mn>2</mn></msup><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">\mathcal L_{\mathrm{geo}}=\mathbb E\big[\|v_t-G_{\mathrm{geo}}(X_t,t,y)\|^2\big],</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">geo</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathbb">E</span><span class="mord"><span class="delimsizing size1">[</span></span><span class="mord">∥</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2141em;vertical-align:-0.35em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">geo</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mclose">)</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord"><span class="delimsizing size1">]</span></span><span class="mpunct">,</span></span></span></span></span>
+<p>其中 (X_t) 是带噪潜变量，(t) 是生成时间，(y) 是文本条件，(v_t) 是训练目标速度。这里的“速度”是潜变量变化方向，不涉及物体的真实运动。</p>
+<p>这部分还需要配合 TRELLIS 原论文进一步学习；理解 PEGAsus 的第一轮阅读时，知道两个模块的职责已经足够。</p>
+<h2 id="4-一个参考模型如何训练出一个概念向量">4. 一个参考模型，如何训练出一个概念向量？</h2>
+<p>这是我第一次阅读时最困惑的问题。</p>
+<p>在一般的条件生成模型中，文本编码器将描述 (y) 编码成向量或向量序列，生成器使用这些条件从噪声中生成目标物体。图像个性化研究中的 <a href="https://arxiv.org/abs/2208.01618">Textual Inversion</a> 进一步提出：可以为一个新概念设置可训练的文本嵌入，让冻结的生成器通过它学会特定参考样本的属性。</p>
+<p>PEGAsus 采用了相近的思想，但多了一步生成器微调。</p>
+<h3 id="41-第一步冻结生成器优化概念嵌入">4.1 第一步：冻结生成器，优化概念嵌入</h3>
+<p>设预训练生成器的参数为 (\theta_0)，概念嵌入为 (C)。作者用中性的文本描述（例如 <code>object</code>）对应的 CLIP 嵌入初始化 (C)。</p>
+<p>参考三维模型先编码为潜变量，随后在不同时间和噪声水平上构造训练输入。优化目标可以概括为：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>C</mi><mo>∗</mo></msup><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mrow><mi>min</mi><mo>⁡</mo></mrow><mi>C</mi></munder><mi mathvariant="script">L</mi><mo stretchy="false">(</mo><mi>C</mi><mo separator="true">,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">C^*=\arg\min_C\mathcal L(C,\theta_0).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7387em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.4943em;vertical-align:-0.7443em;"></span><span class="mop">ar<span style="margin-right:0.0139em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-2.3557em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7443em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathcal">L</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span>
+<p>虽然生成器参数被冻结，生成器输出仍然依赖 (C)，因此误差可以反向传播到这个概念向量。</p>
+<p>这里的“学到参考特征”有一个准确含义：经过优化后，<strong>生成器在这一条件下能够更好地预测参考样本的生成目标</strong>。损失函数没有直接规定向量中的每一维对应齿距、曲率或纹理，也没有直接要求它只学到人类想保留的属性。</p>
+<h3 id="42-第二步固定嵌入微调生成器">4.2 第二步：固定嵌入，微调生成器</h3>
+<p>只调整条件向量时，模型能够生成的内容受到固定生成器表达能力的限制。某些罕见的精细结构，仅靠改变条件向量仍可能难以表达。</p>
+<p>于是 PEGAsus 固定已经学习到的 (C^*)，以较小学习率微调生成器：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>θ</mi><mo>∗</mo></msup><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mrow><mi>min</mi><mo>⁡</mo></mrow><mi>θ</mi></munder><mi mathvariant="script">L</mi><mo stretchy="false">(</mo><msup><mi>C</mi><mo>∗</mo></msup><mo separator="true">,</mo><mi>θ</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\theta^*=\arg\min_\theta\mathcal L(C^*,\theta).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7387em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.5021em;vertical-align:-0.7521em;"></span><span class="mop">ar<span style="margin-right:0.0139em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-2.3479em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7521em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathcal">L</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span>
+<p>这样，概念的表示由两部分共同承担：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mi mathvariant="script">C</mi><mo>=</mo><mo stretchy="false">(</mo><msup><mi>C</mi><mo>∗</mo></msup><mo separator="true">,</mo><msub><mi>G</mi><msup><mi>θ</mi><mo>∗</mo></msup></msub><mo stretchy="false">)</mo></mrow></mstyle></mstyle></mstyle></menclose><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\boxed{\mathcal C=(C^*,G_{\theta^*})}.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.68em;vertical-align:-0.59em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.09em;"><span style="top:-3.68em;"><span class="pstrut" style="height:3.68em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord mathcal" style="margin-right:0.0583em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span style="top:-3.09em;"><span class="pstrut" style="height:3.68em;"></span><span class="stretchy fbox" style="height:1.68em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.59em;"><span></span></span></span></span></span><span class="mord">.</span></span></span></span></span>
+<p>这一过程采用了<strong>渐进式、分阶段优化</strong>，两个阶段分别更新不同的参数。</p>
+<p>为什么需要这样的顺序？如果直接用单个参考物体微调整个生成器，模型可能过度记住参考实例，丧失对新目标文本的控制能力。先优化嵌入，能让预训练模型已有的生成能力承担一部分参考属性表达任务，随后再通过保守的微调补充细节。这是作者的设计动机，图 7 和表 3 为这一策略提供了消融证据。</p>
+<h3 id="43-文本提示如何与概念结合">4.3 文本提示如何与概念结合？</h3>
+<p>推理时可以使用类似 <code>A horse of S*</code> 的目标文本，其中 <code>S*</code> 对应学习后的几何概念。系统利用组合条件与相应的微调生成器，合成具有参考属性的新物体。</p>
+<p>需要保留一个实现层面的疑问：PEGAsus 正文说明了概念嵌入与文本提示的组合，但没有在这一段中充分明确是采用简单向量相加、序列拼接还是其他张量操作。<strong>“组合条件”是功能描述，具体实现仍需要查阅代码或更详细的补充说明。</strong></p>
+<p>另外，“一个向量装不下细节”也应当谨慎理解。真正的限制既包括条件表示容量，也包括固定生成器能够响应这些条件产生怎样的结果。可以优化多个嵌入、在不同网络层注入条件，或者训练轻量适配参数，但这些都是不同的算法设计。</p>
+<h2 id="5-全局概念与局部概念为什么需要两种-loss">5. 全局概念与局部概念：为什么需要两种 Loss？</h2>
+<p>全局概念学习直接使用参考形状的整体信息。局部概念学习则允许用户指定一个三维区域，例如只学习青蛙的腿、鸟的翅膀，或某件物体表面上的条纹。</p>
+<p>问题是：<strong>如果训练只关注翅膀，模型究竟该不该看到鸟的身体？</strong></p>
+<p>作者采用两种互补损失。令 (M) 为指定区域的掩码。</p>
+<p><strong>Context-Aware Loss（上下文感知损失）</strong>：输入完整参考物体，但只在掩码区域计算预测误差。</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">L</mi><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">x</mi></mrow></msub><mo>=</mo><mi mathvariant="double-struck">E</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><mi mathvariant="normal">∥</mi><mi>M</mi><mo>⊙</mo><mo stretchy="false">(</mo><msub><mi>v</mi><mi>t</mi></msub><mo>−</mo><mi>G</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>t</mi></msub><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><msup><mi mathvariant="normal">∥</mi><mn>2</mn></msup><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\mathcal L_{\mathrm{ctx}}=\mathbb E\big[\|M\odot(v_t-G(X_t,t,C))\|^2\big].</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ctx</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathbb">E</span><span class="mord"><span class="delimsizing size1">[</span></span><span class="mord">∥</span><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⊙</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2141em;vertical-align:-0.35em;"></span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mclose">))</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord"><span class="delimsizing size1">]</span></span><span class="mord">.</span></span></span></span></span>
+<p>模型能够利用身体、连接位置等周围信息，因此更有机会保持局部与整体之间的协调。</p>
+<p><strong>Context-Free Loss（无上下文损失）</strong>：遮蔽指定区域以外的参考结构，再对处理后的参考形状编码、加噪，仍然只在目标区域计算误差。</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">L</mi><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow></msub><mo>=</mo><mi mathvariant="double-struck">E</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><mi mathvariant="normal">∥</mi><mi>M</mi><mo>⊙</mo><mo stretchy="false">(</mo><msub><mi>v</mi><mi>t</mi></msub><mo>−</mo><mi>G</mi><mo stretchy="false">(</mo><msubsup><mi>X</mi><mi>t</mi><mi>M</mi></msubsup><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><msup><mi mathvariant="normal">∥</mi><mn>2</mn></msup><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\mathcal L_{\mathrm{free}}=\mathbb E\big[\|M\odot(v_t-G(X_t^M,t,C))\|^2\big].</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">free</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathbb">E</span><span class="mord"><span class="delimsizing size1">[</span></span><span class="mord">∥</span><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⊙</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2413em;vertical-align:-0.35em;"></span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.109em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mclose">))</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord"><span class="delimsizing size1">]</span></span><span class="mord">.</span></span></span></span></span>
+<p>模型失去一部分周围线索，需要更加依赖概念条件表达指定区域，从而降低对原始载体的依赖。</p>
+<p>两个损失组合为：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">L</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow></msub><mo>=</mo><msub><mi mathvariant="script">L</mi><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">x</mi></mrow></msub><mo>+</mo><mi>λ</mi><msub><mi mathvariant="script">L</mi><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow></msub><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\mathcal L_{\mathrm{region}}=\mathcal L_{\mathrm{ctx}}+\lambda\mathcal L_{\mathrm{free}}.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">region</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ctx</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord mathnormal">λ</span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">free</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">.</span></span></span></span></span>
+<p>以上公式为便于理解的统一记号。原论文分别给出几何和外观的具体损失，掩码所在的潜变量空间也不同。</p>
+<p>这里一个容易犯的错误是把 Context-Aware 说成“先将参考区域遮蔽”。实际上，<strong>Context-Aware 的完整输入保留上下文，掩码只限定监督区域；Context-Free 才会去掉周围上下文。</strong></p>
+<h2 id="6-四种概念如何在生成时使用">6. 四种概念如何在生成时使用？</h2>
+<p>PEGAsus 在两个维度上支持四种模式：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>全局概念</th><th>局部概念</th></tr></thead><tbody><tr><td><strong>几何</strong></td><td>学习整体形态或重复结构</td><td>学习某个指定区域的形状特征</td></tr><tr><td><strong>外观</strong></td><td>学习整个物体的外观模式</td><td>学习局部颜色或纹理模式</td></tr></tbody></table>
+<p>几何与外观的概念在不同生成阶段学习。推理时，可以先用几何概念与文本生成 (V)，再将外观概念作用于给定结构，生成 (Z)，得到最终三维资产。</p>
+<p>一个重要的工程事实是：<strong>PEGAsus 中的新参考概念通常需要单独进行个性化优化</strong>。基础 TRELLIS 是通用生成模型，但每个学到的概念包含自己的嵌入和适配生成器。学好一个概念之后，可以将它反复应用于不同目标文本，不必为“汽车”“椅子”等每个目标类别重新训练。</p>
+<p>这也带来概念库扩展时的训练、存储和组合成本问题。</p>
+<h2 id="7-实验到底证明了什么">7. 实验到底证明了什么？</h2>
+<p>论文的几何评估包括 30 个参考物体、每个参考对应 3 个目标文本，共 90 个测试案例；外观评估包含 30 对参考外观与目标几何。作者还进行了一项包含 10 位参与者的用户研究。</p>
+<h3 id="71-与其他方法比较">7.1 与其他方法比较</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>几何任务（表 1）</th><th align="right">KID ↓</th><th align="right">CLIP-R ↑</th><th align="right">几何属性评分 AS ↑</th><th align="right">文本评分 TS ↑</th></tr></thead><tbody><tr><td>PEGAsus</td><td align="right"><strong>0.0064</strong></td><td align="right"><strong>0.833</strong></td><td align="right"><strong>4.15</strong></td><td align="right"><strong>4.31</strong></td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>外观任务（表 2）</th><th align="right">ArtFID ↓</th><th align="right">FID ↓</th><th align="right">质量评分 QS ↑</th><th align="right">外观匹配评分 MS ↑</th></tr></thead><tbody><tr><td>PEGAsus</td><td align="right"><strong>23.45</strong></td><td align="right"><strong>235.9</strong></td><td align="right"><strong>4.67</strong></td><td align="right"><strong>4.37</strong></td></tr></tbody></table>
+<p>论文报告 PEGAsus 在这些评价中的指标优于选定的基线。但 KID、FID 和 CLIP-R 主要反映渲染图像统计与文本语义匹配，不能直接证明网格几何精度、材料物理正确性或概念的可辨识性。</p>
+<h3 id="72-为什么图-7-和表-3-尤其重要">7.2 为什么图 7 和表 3 尤其重要？</h3>
+<p>图 7 是直观的消融实验：</p>
+<ul>
+<li>只优化嵌入，细节保留不足，生成结果可能趋于普通目标物体。</li>
+<li>只微调生成器，容易过度适应参考形状，削弱文本控制。</li>
+<li>去掉 Context-Aware Loss，局部结构可能不协调。</li>
+<li>去掉 Context-Free Loss，参考属性可能难以保留。</li>
+</ul>
+<p>表 3 则进一步报告了渐进式优化的定量消融：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>方法</th><th align="right">KID ↓</th><th align="right">CLIP-R ↑</th><th align="right">ArtFID ↓</th><th align="right">FID ↓</th></tr></thead><tbody><tr><td>去掉嵌入优化</td><td align="right">0.0075</td><td align="right">0.567</td><td align="right">29.21</td><td align="right">276.03</td></tr><tr><td>去掉生成器微调</td><td align="right">0.0117</td><td align="right">0.489</td><td align="right">31.82</td><td align="right">302.76</td></tr><tr><td>完整方法</td><td align="right"><strong>0.0064</strong></td><td align="right"><strong>0.842</strong></td><td align="right"><strong>23.45</strong></td><td align="right"><strong>235.9</strong></td></tr></tbody></table>
+<p>完整方法在表 3 的这些指标中表现最好。需要注意，表 1 与表 3 报告的完整方法 CLIP-R 分别是 0.833 和 0.842，正文没有清楚解释这两个数值的差异。</p>
+<p>此外，<strong>表 3 没有给出局部双损失的独立定量消融</strong>；图 7 对这部分主要提供视觉证据。这应成为进一步检验的重点。</p>
+<h2 id="8-论文的创新边界与尚未回答的问题">8. 论文的创新边界与尚未回答的问题</h2>
+<p>在第一轮阅读和讨论之后，我认为 PEGAsus 最值得肯定的是三个方面：</p>
+<p><strong>其一，任务组织。</strong> 将可迁移三维概念拆分为几何、外观以及全局、局部四类，围绕参考属性与目标文本的组合进行研究。</p>
+<p><strong>其二，利用现有生成架构。</strong> 借助 TRELLIS 两阶段生成结构，在不同阶段分别进行个性化，而无须从零训练大型三维基础模型。</p>
+<p><strong>其三，围绕失败模式设计优化。</strong> 文本嵌入学习与模型微调互补，上下文感知与无上下文损失互补。作者还通过相应消融检验了这些设计。</p>
+<p>不过，以下结论仍需谨慎：</p>
+<ol>
+<li><strong>概念是否真正独立？</strong> 一个概念由嵌入和微调生成器共同表示，参考物体的其他结构偏置可能一同被学到。</li>
+<li><strong>跨类别成功是否意味着概念可辨识？</strong> 两组不同的参数可以生成类似的局部几何。生成行为相似，不保证内部概念表示唯一。</li>
+<li><strong>几何和外观是否彻底解耦？</strong> SLAT 的阶段划分有利于分别控制，但详细潜变量仍可能同时包含几何和外观信息。</li>
+<li><strong>局部属性如何适应目标？</strong> 兔耳、栏杆或腿部等结构应当放在哪个位置，采用什么尺寸与连接方式，尚缺少显式、稳定的规则。</li>
+<li><strong>复杂材质和三维质量怎样评价？</strong> 渲染图片中的外观相似并不等价于物理材质参数一致，也无法完整反映网格拓扑、连通性等指标。</li>
+<li><strong>大量概念如何扩展？</strong> 逐概念微调带来训练成本和参数管理问题。</li>
+</ol>
+<p>这也引出了一个我很感兴趣的后续问题：<strong>同一种局部几何出现在不同参考物体中，能否学习到稳定、可迁移的概念？</strong></p>
+<p>例如，鸟和龙具有完全相同的锯齿翅膀，但身体不同。分别学习概念后，若将它们应用到同一个机器人上，生成结果中的锯齿属性能否保持一致？</p>
+<p>这里还需要区分：我们希望保持锯齿的相对轮廓，还是绝对物理齿距？尺度、位置与朝向应当作为适配变化，还是概念身份的一部分？</p>
+<h2 id="9-阅读总结">9. 阅读总结</h2>
+<p>回到最初的问题，PEGAsus 是一种参考驱动的可控三维生成方法。它通过预训练 TRELLIS 的几何与结构化潜变量生成阶段，结合文本嵌入优化、生成器微调和局部区域损失，让参考三维物体中的某些属性能够被带到新的物体类别中。</p>
+<p>对我而言，第一轮阅读最重要的收获，在于逐渐分清了三件事：</p>
+<ul>
+<li><strong>作者希望模型做到什么</strong>：保留参考属性，同时遵循新的目标语义。</li>
+<li><strong>训练目标实际上约束了什么</strong>：潜变量速度预测、指定区域中的误差，以及具体模型参数的更新。</li>
+<li><strong>实验足以证明什么</strong>：一定测试范围内的属性保留、跨类别迁移与部分优化组件的有效性；更强的概念独立性和可辨识性仍待验证。</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li>Hu et al. <a href="https://arxiv.org/abs/2602.08198">PEGAsus: 3D Personalization of Geometry and Appearance</a>, 2026。</li>
+<li>Xiang et al. <a href="https://microsoft.github.io/TRELLIS/">TRELLIS: Structured 3D Latents for Scalable and Versatile 3D Generation</a>, CVPR 2025。</li>
+<li>Gal et al. <a href="https://arxiv.org/abs/2208.01618">An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion</a>, ICLR 2023。</li>
+<li>Raj et al. <a href="https://openaccess.thecvf.com/content/ICCV2023/html/Raj_DreamBooth3D_Subject-Driven_Text-to-3D_Generation_ICCV_2023_paper.html">DreamBooth3D: Subject-Driven Text-to-3D Generation</a>, ICCV 2023。</li>
+<li>Wang et al. <a href="https://arxiv.org/abs/2403.15383">ThemeStation: Generating Theme-Aware 3D Assets from Few Exemplars</a>, SIGGRAPH 2024。</li>
+<li><a href="https://doi.org/10.1145/3757377.3763929">StyleSculptor: Zero-Shot Style-Controllable 3D Asset Generation with Texture-Geometry Dual Guidance</a>, SIGGRAPH Asia 2025。</li>
+</ol></article><ul class="border-border mt-10 flex flex-wrap gap-4 border-t pt-6" data-pagefind-ignore><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/zh/tags/generated-by-agents/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Generated by Agents</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/zh/tags/3d-personalization/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>3D Personalization</a></li><li><a data-astro-transition-scope="astro-bztu2lml-3" href="/zh/tags/concept-learning/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Concept Learning</a></li><li><a data-astro-transition-scope="astro-bztu2lml-4" href="/zh/tags/structured-latent/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Structured Latent</a></li><li><a data-astro-transition-scope="astro-bztu2lml-5" href="/zh/tags/flow-matching/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Flow Matching</a></li><li><a data-astro-transition-scope="astro-bztu2lml-6" href="/zh/tags/region-wise-learning/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Region-wise Learning</a></li></ul></main><footer class="app-layout mt-auto pt-12"><div class="border-border flex flex-wrap items-center justify-between gap-3 border-t py-6 text-sm text-muted-foreground"><span>© 2026 Boson</span><div class="flex gap-4"><a href="/zh/rss.xml" aria-label="订阅中文更新">RSS</a><a href="https://github.com/satnaing/astro-paper" rel="external">AstroPaper</a></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n);let t=document.documentElement.lang.startsWith(`zh`),r=i===n?t?`切换到浅色主题`:`Switch to light theme`:t?`切换到深色主题`:`Switch to dark theme`;document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,r);let a=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,a)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html>
